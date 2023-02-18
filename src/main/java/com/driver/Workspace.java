@@ -29,7 +29,7 @@ public class Workspace extends Gmail {
         // Example: If a meeting ends at 10:00 am, you cannot attend another meeting starting at 10:00 am
         if (calendar.size() == 0) return 0;
 
-        int count = 0;
+        int count = 1;
         for (int i = 0; i < calendar.size() - 1; i++) {
             Meeting meet1 = calendar.get(i);
             Meeting meet2 = calendar.get(i + 1);
