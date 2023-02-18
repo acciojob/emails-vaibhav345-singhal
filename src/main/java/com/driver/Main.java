@@ -34,6 +34,11 @@ public class Main {
         workspace.addMeeting(new Meeting(LocalTime.parse("13:30"), LocalTime.parse("17:50")));
         workspace.addMeeting(new Meeting(LocalTime.parse("18:20"), LocalTime.parse("19:10")));
         workspace.addMeeting(new Meeting(LocalTime.parse("19:50"), LocalTime.parse("21:05")));
+//        workspace.addMeeting(new Meeting(LocalTime.parse("01:00"), LocalTime.parse("02:00")));
+//        workspace.addMeeting(new Meeting(LocalTime.parse("03:00"), LocalTime.parse("04:00")));
+//        workspace.addMeeting(new Meeting(LocalTime.parse("01:00"), LocalTime.parse("02:00")));
+//        workspace.addMeeting(new Meeting(LocalTime.parse("03:00"), LocalTime.parse("04:00")));
+//        workspace.addMeeting(new Meeting(LocalTime.parse("00:00"), LocalTime.parse("06:00")));
         System.out.println("Maximum meetings you can attend in a day is " + workspace.findMaxMeetings());
     }
 }

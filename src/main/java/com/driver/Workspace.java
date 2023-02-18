@@ -1,7 +1,12 @@
 package com.driver;
 
 import org.apache.commons.lang3.tuple.Pair;
-import java.util.*;
+
+import java.lang.reflect.Method;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.PriorityQueue;
 
 public class Workspace extends Gmail {
 
@@ -29,32 +34,38 @@ public class Workspace extends Gmail {
             if (a.getStartTime().compareTo(b.getStartTime()) == 0) return a.getEndTime().compareTo(b.getEndTime());
             return a.getStartTime().compareTo(b.getStartTime());
         });
-
-        PriorityQueue<Meeting> pq = new PriorityQueue<>((a, b) -> {
-            if (a.getStartTime().compareTo(b.getStartTime()) == 0) return b.getEndTime().compareTo(a.getEndTime());
-            return b.getStartTime().compareTo(a.getStartTime());
-        });
-
-        int count = 0;
-        pq.add(calendar.get(0));
-        for (int i = 1; i < calendar.size(); i++) {
-            Meeting meet = calendar.get(i);
-            if (pq.size() > 0 && pq.peek().getEndTime().compareTo(meet.getStartTime()) < 0) {
-                pq.add(meet);
-            } else if (pq.size() > 0 && pq.peek().getEndTime().compareTo(meet.getEndTime()) > 0) {
-                pq.remove();
-                pq.add(meet);
-            }
-            count = Math.max(count, pq.size());
-        }
-//        Meeting oldMeet = calendar.get(0);
-//        for (int i = 1; i <= calendar.size() - 1; i++) {
-//            Meeting nextMeet = calendar.get(i);
-//            if (oldMeet.getEndTime().compareTo(nextMeet.getStartTime()) < 0) {
-//                oldMeet = nextMeet;
-//                count++;
-//            }
+//        for (Meeting meet : calendar) {
+//            System.out.println(meet.getStartTime() + "  " + meet.getEndTime());
 //        }
+//        PriorityQueue<Meeting> pq = new PriorityQueue<>((a, b) -> {
+//            if (a.getStartTime().compareTo(b.getStartTime()) == 0) return b.getEndTime().compareTo(a.getEndTime());
+//            return b.getStartTime().compareTo(a.getStartTime());
+//        });
+
+//        int count = 0;
+//        pq.add(calendar.get(0));
+//        for (int i = 1; i < calendar.size(); i++) {
+//            Meeting meet = calendar.get(i);
+//
+//            if (pq.peek().getEndTime().compareTo(meet.getStartTime()) < 0) {
+//                pq.add(meet);
+//            } else if (pq.peek().getEndTime().compareTo(meet.getEndTime()) > 0) {
+//                pq.remove();
+//                pq.add(meet);
+//            } else if (pq.peek().getStartTime().compareTo(meet.getStartTime()) == 0 && pq.peek().getEndTime())
+//        }
+
+        int count = 1;
+        Meeting oldMeet = calendar.get(0);
+        for (int i = 1; i <= calendar.size() - 1; i++) {
+            Meeting nextMeet = calendar.get(i);
+            if (oldMeet.getEndTime().compareTo(nextMeet.getStartTime()) < 0) {
+                oldMeet = nextMeet;
+                count++;
+            } else if (oldMeet.getEndTime().compareTo(nextMeet.getEndTime()) > 0) {
+                oldMeet = nextMeet;
+            }
+        }
         return count;
     }
 }
