@@ -32,9 +32,9 @@ public class Workspace extends Gmail {
         calendar.sort((a, b) -> {
             return a.getStartTime().compareTo(b.getStartTime());
         });
-        for (Meeting meet : calendar) {
-            System.out.println(meet.getStartTime() + "  " + meet.getEndTime());
-        }
+//        for (Meeting meet : calendar) {
+//            System.out.println(meet.getStartTime() + "  " + meet.getEndTime());
+//        }
         int count = 1;
         Meeting oldMeet = calendar.get(0);
         for (int i = 1; i <= calendar.size() - 1; i++) {
