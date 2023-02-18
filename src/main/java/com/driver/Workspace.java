@@ -1,11 +1,7 @@
 package com.driver;
 
 import org.apache.commons.lang3.tuple.Pair;
-
-import java.lang.reflect.Method;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class Workspace extends Gmail {
 
@@ -29,21 +25,36 @@ public class Workspace extends Gmail {
         // Example: If a meeting ends at 10:00 am, you cannot attend another meeting starting at 10:00 am
         if (calendar.size() == 0) return 0;
 
-//        calendar.sort((a, b) -> {
-//            return a.getStartTime().compareTo(b.getStartTime());
-//        });
-//        for (Meeting meet : calendar) {
-//            System.out.println(meet.getStartTime() + "  " + meet.getEndTime());
-//        }
-        int count = 1;
-        Meeting oldMeet = calendar.get(0);
-        for (int i = 1; i <= calendar.size() - 1; i++) {
-            Meeting nextMeet = calendar.get(i);
-            if (oldMeet.getEndTime().compareTo(nextMeet.getStartTime()) < 0) {
-                oldMeet = nextMeet;
-                count++;
+        calendar.sort((a, b) -> {
+            if (a.getStartTime().compareTo(b.getStartTime()) == 0) return a.getEndTime().compareTo(b.getEndTime());
+            return a.getStartTime().compareTo(b.getStartTime());
+        });
+
+        PriorityQueue<Meeting> pq = new PriorityQueue<>((a, b) -> {
+            if (a.getStartTime().compareTo(b.getStartTime()) == 0) return b.getEndTime().compareTo(a.getEndTime());
+            return b.getStartTime().compareTo(a.getStartTime());
+        });
+
+        int count = 0;
+        pq.add(calendar.get(0));
+        for (int i = 1; i < calendar.size(); i++) {
+            Meeting meet = calendar.get(i);
+            if (pq.size() > 0 && pq.peek().getEndTime().compareTo(meet.getStartTime()) < 0) {
+                pq.add(meet);
+            } else if (pq.size() > 0 && pq.peek().getEndTime().compareTo(meet.getEndTime()) > 0) {
+                pq.remove();
+                pq.add(meet);
             }
+            count = Math.max(count, pq.size());
         }
+//        Meeting oldMeet = calendar.get(0);
+//        for (int i = 1; i <= calendar.size() - 1; i++) {
+//            Meeting nextMeet = calendar.get(i);
+//            if (oldMeet.getEndTime().compareTo(nextMeet.getStartTime()) < 0) {
+//                oldMeet = nextMeet;
+//                count++;
+//            }
+//        }
         return count;
     }
 }
