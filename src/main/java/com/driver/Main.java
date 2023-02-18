@@ -30,6 +30,7 @@ public class Main {
         System.out.println("Inbox capacity is " + workspace.getInboxCapacity() + " in workspace.");
 
         workspace.addMeeting(new Meeting(LocalTime.parse("17:40"), LocalTime.parse("18:40")));
+        workspace.addMeeting(new Meeting(LocalTime.parse("18:50"), LocalTime.parse("19:00")));
         workspace.addMeeting(new Meeting(LocalTime.parse("13:30"), LocalTime.parse("18:00")));
         workspace.addMeeting(new Meeting(LocalTime.parse("18:20"), LocalTime.parse("19:10")));
         workspace.addMeeting(new Meeting(LocalTime.parse("19:50"), LocalTime.parse("21:05")));
